@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Автопарк MongoDB - Лабораторна 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
+        .header { background: #001529; color: white; padding: 30px 0; margin-bottom: 40px; border-bottom: 5px solid #1890ff; }
+        .car-card { border: none; border-radius: 12px; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .car-card:hover { transform: translateY(-10px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .price { font-size: 1.4rem; color: #1890ff; font-weight: bold; }
+        .spec-label { color: #8c8c8c; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="header text-center">
+    <h1>Керування автопарком </h1>
+</div>
+
+<div class="container">
+    <div class="row g-4" id="cars-list">
+        </div>
+</div>
+
+<script>
+    async function getCars() {
+        const response = await fetch('/api/cars');
+        const cars = await response.json();
+        const list = document.getElementById('cars-list');
+        
+        list.innerHTML = cars.map(car => `
+            <div class="col-md-4">
+                <div class="card car-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-uppercase">${car.Brand} ${car.Model}</h5>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="spec-label">Рік випуску:</span>
+                            <span class="fw-bold">${car.Year}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="spec-label">Колір:</span>
+                            <span class="fw-bold">${car.Color}</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="spec-label d-block">Ціна оренди:</span>
+                            <span class="price">${car.BaseRentalPrice} ₴ / доба</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-center pb-3">
+                        <small class="text-muted">ID: ${car._id}</small>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    getCars();
+</script>
+</body>
+</html>
