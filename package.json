@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "jest",
+    "test:cover": "jest --coverage",
     "lint": "eslint "
   },
   "keywords": [],
