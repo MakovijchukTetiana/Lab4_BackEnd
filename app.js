@@ -123,7 +123,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// Налаштування статичних файлів (для перегляду через /view)
+// Налаштування статичних файлів 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Маршрути API
